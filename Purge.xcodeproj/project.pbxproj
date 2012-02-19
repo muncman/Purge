@@ -1,0 +1,512 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		EC3B01B514EF72CB00CC8989 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3B01B414EF72CB00CC8989 /* UIKit.framework */; };
+		EC3B01B714EF72CB00CC8989 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3B01B614EF72CB00CC8989 /* Foundation.framework */; };
+		EC3B01B914EF72CB00CC8989 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3B01B814EF72CB00CC8989 /* CoreGraphics.framework */; };
+		EC3B01BF14EF72CB00CC8989 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EC3B01BD14EF72CB00CC8989 /* InfoPlist.strings */; };
+		EC3B01C114EF72CB00CC8989 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3B01C014EF72CB00CC8989 /* main.m */; };
+		EC3B01C514EF72CB00CC8989 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3B01C414EF72CB00CC8989 /* AppDelegate.m */; };
+		EC3B01D714EF768C00CC8989 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3B01D614EF768C00CC8989 /* Parse.framework */; };
+		EC3B01D914EF76A200CC8989 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3B01D814EF76A200CC8989 /* AudioToolbox.framework */; };
+		EC3B01DB14EF76AA00CC8989 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3B01DA14EF76AA00CC8989 /* CFNetwork.framework */; };
+		EC3B01DD14EF76B000CC8989 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3B01DC14EF76B000CC8989 /* SystemConfiguration.framework */; };
+		EC3B01DF14EF76B700CC8989 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3B01DE14EF76B700CC8989 /* MobileCoreServices.framework */; };
+		EC3B01E114EF76C600CC8989 /* libz.1.1.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3B01E014EF76C600CC8989 /* libz.1.1.3.dylib */; };
+		EC3B01E314EF76CC00CC8989 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3B01E214EF76CC00CC8989 /* Security.framework */; };
+		EC3B01E514EF76D100CC8989 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3B01E414EF76D100CC8989 /* QuartzCore.framework */; };
+		EC3B01EA14EF7D8300CC8989 /* Signup.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3B01E914EF7D8300CC8989 /* Signup.m */; };
+		EC3B01ED14EF7D8F00CC8989 /* Login.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3B01EC14EF7D8F00CC8989 /* Login.m */; };
+		EC5CC5CD14F098D900F1298B /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EC5CC5CC14F098D900F1298B /* libz.dylib */; };
+		EC5CC5D314F0A89900F1298B /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = EC5CC5D214F0A89900F1298B /* Item.m */; };
+		EC5CC5D614F0A8A200F1298B /* MyItem.m in Sources */ = {isa = PBXBuildFile; fileRef = EC5CC5D514F0A8A200F1298B /* MyItem.m */; };
+		EC67F83414F044BD009C7FFE /* Purge.m in Sources */ = {isa = PBXBuildFile; fileRef = EC67F83314F044BD009C7FFE /* Purge.m */; };
+		EC67F83814F04717009C7FFE /* CreatePurge.m in Sources */ = {isa = PBXBuildFile; fileRef = EC67F83714F04717009C7FFE /* CreatePurge.m */; };
+		EC67F84F14F05FDA009C7FFE /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = EC67F84E14F05FDA009C7FFE /* MBProgressHUD.m */; };
+		EC67F85614F066CD009C7FFE /* ConnectSocial.m in Sources */ = {isa = PBXBuildFile; fileRef = EC67F85514F066CD009C7FFE /* ConnectSocial.m */; };
+		EC67F85D14F08877009C7FFE /* MyPurgesDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = EC67F85C14F08877009C7FFE /* MyPurgesDataSource.m */; };
+		EC67F86114F097AA009C7FFE /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EC67F85F14F097A9009C7FFE /* libTestFlight.a */; };
+		EC98E92D14EF8108002A92C2 /* Splash.m in Sources */ = {isa = PBXBuildFile; fileRef = EC98E92C14EF8108002A92C2 /* Splash.m */; };
+		EC9EBB7B14F00299005B9FC7 /* Home.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9EBB7A14F00299005B9FC7 /* Home.m */; };
+		EC9EBB7E14F00554005B9FC7 /* HomeDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = EC9EBB7D14F00554005B9FC7 /* HomeDataSource.m */; };
+		ECB4CFED14F0293E002710C9 /* About.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB4CFEC14F0293E002710C9 /* About.m */; };
+		ECB4CFF014F02E92002710C9 /* MainTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB4CFEF14F02E92002710C9 /* MainTabView.m */; };
+		ECB4CFF314F0346D002710C9 /* MyPurge.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB4CFF214F0346D002710C9 /* MyPurge.m */; };
+		ECB4CFF614F0347E002710C9 /* Browse.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB4CFF514F0347E002710C9 /* Browse.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		EC3B01B014EF72CB00CC8989 /* Purge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Purge.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC3B01B414EF72CB00CC8989 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		EC3B01B614EF72CB00CC8989 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		EC3B01B814EF72CB00CC8989 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		EC3B01BC14EF72CB00CC8989 /* Purge-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Purge-Info.plist"; sourceTree = "<group>"; };
+		EC3B01BE14EF72CB00CC8989 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EC3B01C014EF72CB00CC8989 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		EC3B01C214EF72CB00CC8989 /* Purge-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Purge-Prefix.pch"; sourceTree = "<group>"; };
+		EC3B01C314EF72CB00CC8989 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		EC3B01C414EF72CB00CC8989 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		EC3B01D514EF75C600CC8989 /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Config.h; path = ../Config.h; sourceTree = "<group>"; };
+		EC3B01D614EF768C00CC8989 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		EC3B01D814EF76A200CC8989 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		EC3B01DA14EF76AA00CC8989 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		EC3B01DC14EF76B000CC8989 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		EC3B01DE14EF76B700CC8989 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		EC3B01E014EF76C600CC8989 /* libz.1.1.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.1.3.dylib; path = usr/lib/libz.1.1.3.dylib; sourceTree = SDKROOT; };
+		EC3B01E214EF76CC00CC8989 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		EC3B01E414EF76D100CC8989 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		EC3B01E814EF7D8300CC8989 /* Signup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Signup.h; sourceTree = "<group>"; };
+		EC3B01E914EF7D8300CC8989 /* Signup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Signup.m; sourceTree = "<group>"; };
+		EC3B01EB14EF7D8F00CC8989 /* Login.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Login.h; sourceTree = "<group>"; };
+		EC3B01EC14EF7D8F00CC8989 /* Login.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Login.m; sourceTree = "<group>"; };
+		EC5CC5CC14F098D900F1298B /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		EC5CC5D114F0A89900F1298B /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
+		EC5CC5D214F0A89900F1298B /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
+		EC5CC5D414F0A8A200F1298B /* MyItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyItem.h; sourceTree = "<group>"; };
+		EC5CC5D514F0A8A200F1298B /* MyItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyItem.m; sourceTree = "<group>"; };
+		EC67F83214F044BD009C7FFE /* Purge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Purge.h; sourceTree = "<group>"; };
+		EC67F83314F044BD009C7FFE /* Purge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Purge.m; sourceTree = "<group>"; };
+		EC67F83614F04717009C7FFE /* CreatePurge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreatePurge.h; sourceTree = "<group>"; };
+		EC67F83714F04717009C7FFE /* CreatePurge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreatePurge.m; sourceTree = "<group>"; };
+		EC67F84D14F05FDA009C7FFE /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		EC67F84E14F05FDA009C7FFE /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		EC67F85414F066CD009C7FFE /* ConnectSocial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectSocial.h; sourceTree = "<group>"; };
+		EC67F85514F066CD009C7FFE /* ConnectSocial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectSocial.m; sourceTree = "<group>"; };
+		EC67F85B14F08877009C7FFE /* MyPurgesDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPurgesDataSource.h; sourceTree = "<group>"; };
+		EC67F85C14F08877009C7FFE /* MyPurgesDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPurgesDataSource.m; sourceTree = "<group>"; };
+		EC67F85F14F097A9009C7FFE /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
+		EC67F86014F097A9009C7FFE /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
+		EC98E92B14EF8107002A92C2 /* Splash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Splash.h; sourceTree = "<group>"; };
+		EC98E92C14EF8108002A92C2 /* Splash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Splash.m; sourceTree = "<group>"; };
+		EC9EBB7914F00299005B9FC7 /* Home.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Home.h; sourceTree = "<group>"; };
+		EC9EBB7A14F00299005B9FC7 /* Home.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Home.m; sourceTree = "<group>"; };
+		EC9EBB7C14F00554005B9FC7 /* HomeDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeDataSource.h; sourceTree = "<group>"; };
+		EC9EBB7D14F00554005B9FC7 /* HomeDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeDataSource.m; sourceTree = "<group>"; };
+		ECB4CFEB14F0293E002710C9 /* About.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = About.h; sourceTree = "<group>"; };
+		ECB4CFEC14F0293E002710C9 /* About.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = About.m; sourceTree = "<group>"; };
+		ECB4CFEE14F02E92002710C9 /* MainTabView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTabView.h; sourceTree = "<group>"; };
+		ECB4CFEF14F02E92002710C9 /* MainTabView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTabView.m; sourceTree = "<group>"; };
+		ECB4CFF114F0346D002710C9 /* MyPurge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPurge.h; sourceTree = "<group>"; };
+		ECB4CFF214F0346D002710C9 /* MyPurge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPurge.m; sourceTree = "<group>"; };
+		ECB4CFF414F0347E002710C9 /* Browse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Browse.h; sourceTree = "<group>"; };
+		ECB4CFF514F0347E002710C9 /* Browse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Browse.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EC3B01AD14EF72CA00CC8989 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EC5CC5CD14F098D900F1298B /* libz.dylib in Frameworks */,
+				EC3B01E514EF76D100CC8989 /* QuartzCore.framework in Frameworks */,
+				EC3B01E314EF76CC00CC8989 /* Security.framework in Frameworks */,
+				EC3B01E114EF76C600CC8989 /* libz.1.1.3.dylib in Frameworks */,
+				EC3B01B914EF72CB00CC8989 /* CoreGraphics.framework in Frameworks */,
+				EC3B01DF14EF76B700CC8989 /* MobileCoreServices.framework in Frameworks */,
+				EC3B01DD14EF76B000CC8989 /* SystemConfiguration.framework in Frameworks */,
+				EC3B01DB14EF76AA00CC8989 /* CFNetwork.framework in Frameworks */,
+				EC3B01D914EF76A200CC8989 /* AudioToolbox.framework in Frameworks */,
+				EC3B01B514EF72CB00CC8989 /* UIKit.framework in Frameworks */,
+				EC3B01B714EF72CB00CC8989 /* Foundation.framework in Frameworks */,
+				EC3B01D714EF768C00CC8989 /* Parse.framework in Frameworks */,
+				EC67F86114F097AA009C7FFE /* libTestFlight.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		EC3B01A514EF72CA00CC8989 = {
+			isa = PBXGroup;
+			children = (
+				EC3B01B314EF72CB00CC8989 /* Frameworks */,
+				EC9EBBA814F0085A005B9FC7 /* Graphics */,
+				EC67F85E14F0887B009C7FFE /* Models */,
+				EC3B01B114EF72CB00CC8989 /* Products */,
+				EC3B01BB14EF72CB00CC8989 /* System */,
+				EC3B01E614EF773B00CC8989 /* Views */,
+			);
+			sourceTree = "<group>";
+		};
+		EC3B01B114EF72CB00CC8989 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EC3B01B014EF72CB00CC8989 /* Purge.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EC3B01B314EF72CB00CC8989 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EC5CC5CC14F098D900F1298B /* libz.dylib */,
+				EC67F85F14F097A9009C7FFE /* libTestFlight.a */,
+				EC67F86014F097A9009C7FFE /* TestFlight.h */,
+				EC67F85014F05FE2009C7FFE /* MBProgressHUD */,
+				EC3B01E414EF76D100CC8989 /* QuartzCore.framework */,
+				EC3B01E214EF76CC00CC8989 /* Security.framework */,
+				EC3B01E014EF76C600CC8989 /* libz.1.1.3.dylib */,
+				EC3B01DE14EF76B700CC8989 /* MobileCoreServices.framework */,
+				EC3B01DC14EF76B000CC8989 /* SystemConfiguration.framework */,
+				EC3B01DA14EF76AA00CC8989 /* CFNetwork.framework */,
+				EC3B01D814EF76A200CC8989 /* AudioToolbox.framework */,
+				EC3B01D614EF768C00CC8989 /* Parse.framework */,
+				EC3B01B414EF72CB00CC8989 /* UIKit.framework */,
+				EC3B01B614EF72CB00CC8989 /* Foundation.framework */,
+				EC3B01B814EF72CB00CC8989 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EC3B01BB14EF72CB00CC8989 /* System */ = {
+			isa = PBXGroup;
+			children = (
+				EC3B01D514EF75C600CC8989 /* Config.h */,
+				EC3B01C314EF72CB00CC8989 /* AppDelegate.h */,
+				EC3B01C414EF72CB00CC8989 /* AppDelegate.m */,
+				EC3B01BC14EF72CB00CC8989 /* Purge-Info.plist */,
+				EC3B01BD14EF72CB00CC8989 /* InfoPlist.strings */,
+				EC3B01C014EF72CB00CC8989 /* main.m */,
+				EC3B01C214EF72CB00CC8989 /* Purge-Prefix.pch */,
+			);
+			name = System;
+			path = Purge;
+			sourceTree = "<group>";
+		};
+		EC3B01E614EF773B00CC8989 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				ECB4CFEE14F02E92002710C9 /* MainTabView.h */,
+				ECB4CFEF14F02E92002710C9 /* MainTabView.m */,
+				ECB4CFF714F03FDC002710C9 /* App */,
+				EC755B6F14EFF24900A44859 /* Splash */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		EC67F85014F05FE2009C7FFE /* MBProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				EC67F84D14F05FDA009C7FFE /* MBProgressHUD.h */,
+				EC67F84E14F05FDA009C7FFE /* MBProgressHUD.m */,
+			);
+			name = MBProgressHUD;
+			sourceTree = "<group>";
+		};
+		EC67F85E14F0887B009C7FFE /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				EC67F85B14F08877009C7FFE /* MyPurgesDataSource.h */,
+				EC67F85C14F08877009C7FFE /* MyPurgesDataSource.m */,
+				EC9EBB7C14F00554005B9FC7 /* HomeDataSource.h */,
+				EC9EBB7D14F00554005B9FC7 /* HomeDataSource.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		EC755B6F14EFF24900A44859 /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				EC98E92B14EF8107002A92C2 /* Splash.h */,
+				EC98E92C14EF8108002A92C2 /* Splash.m */,
+				EC3B01EB14EF7D8F00CC8989 /* Login.h */,
+				EC3B01EC14EF7D8F00CC8989 /* Login.m */,
+				EC3B01E814EF7D8300CC8989 /* Signup.h */,
+				EC3B01E914EF7D8300CC8989 /* Signup.m */,
+				EC67F85414F066CD009C7FFE /* ConnectSocial.h */,
+				EC67F85514F066CD009C7FFE /* ConnectSocial.m */,
+			);
+			name = Splash;
+			sourceTree = "<group>";
+		};
+		EC9EBBA814F0085A005B9FC7 /* Graphics */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Graphics;
+			sourceTree = "<group>";
+		};
+		ECB4CFF714F03FDC002710C9 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				EC67F83614F04717009C7FFE /* CreatePurge.h */,
+				EC67F83714F04717009C7FFE /* CreatePurge.m */,
+				EC67F83214F044BD009C7FFE /* Purge.h */,
+				EC67F83314F044BD009C7FFE /* Purge.m */,
+				ECB4CFF114F0346D002710C9 /* MyPurge.h */,
+				ECB4CFF214F0346D002710C9 /* MyPurge.m */,
+				ECB4CFEB14F0293E002710C9 /* About.h */,
+				ECB4CFEC14F0293E002710C9 /* About.m */,
+				ECB4CFF414F0347E002710C9 /* Browse.h */,
+				ECB4CFF514F0347E002710C9 /* Browse.m */,
+				EC9EBB7914F00299005B9FC7 /* Home.h */,
+				EC9EBB7A14F00299005B9FC7 /* Home.m */,
+				EC5CC5D114F0A89900F1298B /* Item.h */,
+				EC5CC5D214F0A89900F1298B /* Item.m */,
+				EC5CC5D414F0A8A200F1298B /* MyItem.h */,
+				EC5CC5D514F0A8A200F1298B /* MyItem.m */,
+			);
+			name = App;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		EC3B01AF14EF72CA00CC8989 /* Purge */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EC3B01C814EF72CB00CC8989 /* Build configuration list for PBXNativeTarget "Purge" */;
+			buildPhases = (
+				EC3B01AC14EF72CA00CC8989 /* Sources */,
+				EC3B01AD14EF72CA00CC8989 /* Frameworks */,
+				EC3B01AE14EF72CA00CC8989 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Purge;
+			productName = Purge;
+			productReference = EC3B01B014EF72CB00CC8989 /* Purge.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EC3B01A714EF72CA00CC8989 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+				ORGANIZATIONNAME = "Topic Design";
+			};
+			buildConfigurationList = EC3B01AA14EF72CA00CC8989 /* Build configuration list for PBXProject "Purge" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = EC3B01A514EF72CA00CC8989;
+			productRefGroup = EC3B01B114EF72CB00CC8989 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EC3B01AF14EF72CA00CC8989 /* Purge */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		EC3B01AE14EF72CA00CC8989 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EC3B01BF14EF72CB00CC8989 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EC3B01AC14EF72CA00CC8989 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EC3B01C114EF72CB00CC8989 /* main.m in Sources */,
+				EC3B01C514EF72CB00CC8989 /* AppDelegate.m in Sources */,
+				EC3B01EA14EF7D8300CC8989 /* Signup.m in Sources */,
+				EC3B01ED14EF7D8F00CC8989 /* Login.m in Sources */,
+				EC98E92D14EF8108002A92C2 /* Splash.m in Sources */,
+				EC9EBB7B14F00299005B9FC7 /* Home.m in Sources */,
+				EC9EBB7E14F00554005B9FC7 /* HomeDataSource.m in Sources */,
+				ECB4CFED14F0293E002710C9 /* About.m in Sources */,
+				ECB4CFF014F02E92002710C9 /* MainTabView.m in Sources */,
+				ECB4CFF314F0346D002710C9 /* MyPurge.m in Sources */,
+				ECB4CFF614F0347E002710C9 /* Browse.m in Sources */,
+				EC67F83414F044BD009C7FFE /* Purge.m in Sources */,
+				EC67F83814F04717009C7FFE /* CreatePurge.m in Sources */,
+				EC67F84F14F05FDA009C7FFE /* MBProgressHUD.m in Sources */,
+				EC67F85614F066CD009C7FFE /* ConnectSocial.m in Sources */,
+				EC67F85D14F08877009C7FFE /* MyPurgesDataSource.m in Sources */,
+				EC5CC5D314F0A89900F1298B /* Item.m in Sources */,
+				EC5CC5D614F0A8A200F1298B /* MyItem.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		EC3B01BD14EF72CB00CC8989 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EC3B01BE14EF72CB00CC8989 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		EC3B01C614EF72CB00CC8989 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		EC3B01C714EF72CB00CC8989 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		EC3B01C914EF72CB00CC8989 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Purge/Purge-Prefix.pch";
+				INFOPLIST_FILE = "Purge/Purge-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				TARGETED_DEVICE_FAMILY = 1;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		EC3B01CA14EF72CB00CC8989 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Purge/Purge-Prefix.pch";
+				INFOPLIST_FILE = "Purge/Purge-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				TARGETED_DEVICE_FAMILY = 1;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		EC5CC5CF14F0995300F1298B /* Ad Hoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "Ad Hoc";
+		};
+		EC5CC5D014F0995300F1298B /* Ad Hoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ryan Nystrom";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Purge/Purge-Prefix.pch";
+				INFOPLIST_FILE = "Purge/Purge-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "23A67E2D-86BA-4A2D-ACAD-082BD1489F46";
+				TARGETED_DEVICE_FAMILY = 1;
+				WRAPPER_EXTENSION = app;
+			};
+			name = "Ad Hoc";
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EC3B01AA14EF72CA00CC8989 /* Build configuration list for PBXProject "Purge" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EC3B01C614EF72CB00CC8989 /* Debug */,
+				EC3B01C714EF72CB00CC8989 /* Release */,
+				EC5CC5CF14F0995300F1298B /* Ad Hoc */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EC3B01C814EF72CB00CC8989 /* Build configuration list for PBXNativeTarget "Purge" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EC3B01C914EF72CB00CC8989 /* Debug */,
+				EC3B01CA14EF72CB00CC8989 /* Release */,
+				EC5CC5D014F0995300F1298B /* Ad Hoc */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = EC3B01A714EF72CA00CC8989 /* Project object */;
+}
