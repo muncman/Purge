@@ -25,6 +25,7 @@
         PFUser *user = [PFUser currentUser];
         PFQuery *query = [PFQuery queryWithClassName:@"Purges"];
         [query whereKey:@"user" equalTo:user];
+        [query orderByDescending:@"createdAt"];
         [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             if ( ! error) {
                 [self setPurges:objects];
@@ -36,6 +37,23 @@
         }];
     }
     return self;
+}
+
+-(void)refresh
+{
+    PFUser *user = [PFUser currentUser];
+    PFQuery *query = [PFQuery queryWithClassName:@"Purges"];
+    [query whereKey:@"user" equalTo:user];
+    [query orderByDescending:@"createdAt"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if ( ! error) {
+            [self setPurges:objects];
+            [[self delegate] purgesDidLoad];
+        }
+        else {
+            [[self delegate] purgesFailed];
+        }
+    }];
 }
 
 @end

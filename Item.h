@@ -9,13 +9,15 @@
 #import <UIKit/UIKit.h>
 
 @interface Item : UIViewController
-<UIScrollViewDelegate>
+<UIScrollViewDelegate, UIAlertViewDelegate>
 {
     PFObject *_purge;
+    UIScrollView *_scrollView;
 }
 
 @property (nonatomic, retain) PFObject *purge;
+@property (nonatomic, retain) UIScrollView *scrollView;
 
-- (UIImage*)imageByScalingForHeight:(CGFloat)maxHeight WithImage:(UIImage*)image;
+-(void)onBuy;
 
 @end

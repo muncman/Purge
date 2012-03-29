@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MainTabView.h"
+#import "Signup.h"
 
 @interface Login : UITableViewController
 <UITextFieldDelegate>
@@ -21,5 +22,6 @@
 
 -(void)onDone;
 -(void)login;
+-(void)onSignup;
 
 @end

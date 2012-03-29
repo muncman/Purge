@@ -48,7 +48,9 @@
 
     [self setTitle:@"Signup"];
     
-    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(onDone)];
+    [[self view] setBackgroundColor:[UIColor colorWithRed:0.792f green:0.874f blue:0.894f alpha:1]];
+    
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Submit" style:UIBarButtonItemStyleDone target:self action:@selector(onDone)];
     [[self navigationItem] setRightBarButtonItem:doneButton];
     [doneButton release], doneButton = nil;
 }
@@ -127,12 +129,14 @@
         [textField setAutocorrectionType:UITextAutocorrectionTypeNo];
         [textField setAutocapitalizationType:UITextAutocapitalizationTypeNone];
         [textField setTextAlignment:UITextAlignmentLeft];
+        [textField setBackgroundColor:[UIColor clearColor]];
         switch ([indexPath row]) {
             case 0:
                 [textField setPlaceholder:@"example@email.com"];
                 [textField setKeyboardType:UIKeyboardTypeEmailAddress];
                 [textField setReturnKeyType:UIReturnKeyNext];
                 [self setEmailField:textField];
+                [[self emailField] performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.1];
                 break;
             case 1:
                 [textField setPlaceholder:@"Required"];
@@ -222,9 +226,15 @@
     [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         [MBProgressHUD hideHUDForView:[self view] animated:YES];
         if (succeeded) {
-            ConnectSocial *view = [[ConnectSocial alloc] initWithStyle:UITableViewStyleGrouped];
-            [[self navigationController] pushViewController:view animated:YES];
-            [view release], view = nil;
+            MainTabView *appView = [[MainTabView alloc] init];
+            CATransition *transition = [CATransition animation];
+            transition.duration = 0.3f;
+            transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+            transition.type = kCATransitionFade;
+            [[[[self navigationController] view] layer] addAnimation:transition forKey:nil];
+            
+            [[self navigationController] pushViewController:appView animated:NO];
+            [appView release], appView = nil;
         }
         else {
             UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"Error" message:[[error userInfo] objectForKey:@"error"] delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];

@@ -8,16 +8,21 @@
 
 #import <UIKit/UIKit.h>
 #import "MyPurgesDataSource.h"
+#import "MyItem.h"
 
 @interface MyPurge : UIViewController
-<MyPurgesDataSourceDelegate, MBProgressHUDDelegate>
+<MyPurgesDataSourceDelegate, MBProgressHUDDelegate, MyItemDelegate>
 {
     MBProgressHUD *HUD;
     MyPurgesDataSource *_dataSource;
+    UIScrollView *_scrollView;
 }
 
 @property (nonatomic, retain) MyPurgesDataSource *dataSource;
+@property (nonatomic, retain) UIScrollView *scrollView;
 
--(void)displayImage:(UIImage*)image WithFrame:(CGRect)frame;
+-(void)displayImage:(UIImage*)image WithFrame:(CGRect)frame WithTag:(int)tag;
+-(void)onSync;
+-(void)onImageButton:(id)sender;
 
 @end

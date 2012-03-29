@@ -11,10 +11,12 @@
 @implementation Home
 
 @synthesize dataSource = _dataSource;
+@synthesize scrollView = _scrollView;
 
 -(void)dealloc
 {
     [_dataSource release], _dataSource = nil;
+    [_scrollView release], _scrollView = nil;
     [super dealloc];
 }
 
@@ -30,25 +32,19 @@
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [[self navigationController] setNavigationBarHidden:NO animated:NO];
-    
-    UIBarButtonItem *syncButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(onSync)];
-    [[[self tabBarController] navigationItem] setRightBarButtonItem:syncButton];
-    [syncButton release], syncButton = nil;
-    
+        
     UIScrollView *view = [[UIScrollView alloc] init];
-    [self setView:view];
+    [self setScrollView:view];
+    [[self view] setBackgroundColor:[UIColor blackColor]];
+    [[self view] addSubview:view];
     [view setFrame:CGRectMake(0, 0, 320, 400)];
     [view setScrollEnabled:YES];
     [view setShowsVerticalScrollIndicator:NO];
-    [view setAlwaysBounceVertical:YES];
+    [view setBackgroundColor:[UIColor colorWithRed:0.792f green:0.874f blue:0.894f alpha:1]];
     
     [view release], view = nil;
 
-    if ([[self navigationController] view]) {
-        [MBProgressHUD showHUDAddedTo:[[self navigationController] view] animated:YES];
-    }
+    [MBProgressHUD showHUDAddedTo:[self view] animated:YES];
     
     HomeDataSource *data = [[HomeDataSource alloc] init];
     [data setDelegate:self];
@@ -57,35 +53,36 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated
-{
-    [[[self tabBarController] navigationController] setNavigationBarHidden:NO animated:animated];
-    [[[self tabBarController] navigationController] setToolbarHidden:YES animated:animated];
-    [[[self tabBarController] navigationItem] setHidesBackButton:YES];
-    [[self tabBarController] setTitle:@"Home"];
+{        
+    UIBarButtonItem *syncButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(onSync)];
+    [[[self tabBarController] navigationItem] setRightBarButtonItem:nil];
+    [[[self tabBarController] navigationItem] setRightBarButtonItem:syncButton];
+    [syncButton release], syncButton = nil;
+    
     [super viewWillAppear:animated];
 }
 
 -(void)onSync
 {
     if ([self dataSource]) {
-        [MBProgressHUD showHUDAddedTo:[[self navigationController] view] animated:YES];
+        [MBProgressHUD showHUDAddedTo:[self view] animated:YES];
         [[self dataSource] refresh];
     }
 }
 
 -(void)purgesDidLoad
 {    
-    [MBProgressHUD hideHUDForView:[[self navigationController] view] animated:YES];
+    [MBProgressHUD hideHUDForView:[self view] animated:YES];
     
     int purgesCount = [[[self dataSource] purges] count];
-    int viewHeight = ((purgesCount / 4) + 1) * kThumbnailHeight + ((purgesCount / 4) + 1) * kThumbnailPadding;
+    int viewHeight = ((purgesCount / 4) + 1) * kThumbnailHeight + ((purgesCount / 4) + 1) * kThumbnailPadding + 44;
     
-    for (UIView *view in [[self view] subviews]) {
+    for (UIView *view in [[self scrollView] subviews]) {
         if ([view isKindOfClass:[UIButton class]]) {
             [view removeFromSuperview];
         }
     }
-    [(UIScrollView*)[self view] setContentSize:CGSizeMake(320, viewHeight)];
+    [[self scrollView] setContentSize:CGSizeMake(320, viewHeight)];
         
     // 4 images wide grid
     for (int i = 0; i < purgesCount; ++i) {
@@ -102,14 +99,23 @@
     }
 }
 
+-(void)purgesFailed
+{
+    UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"Error" message:@"There was an error retreiving your request." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    [av show];
+    [av release];
+}
+
 -(void)displayImage:(UIImage*)image WithFrame:(CGRect)frame WithTag:(int)tag
 {
     UIButton *imageButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [imageButton setFrame:frame];
     [imageButton setImage:image forState:UIControlStateNormal];
     [imageButton setTag:tag];
+    [[imageButton layer] setBorderColor:[[UIColor colorWithRed:0.396f green:0.435f blue:0.427f alpha:1] CGColor]];
+    [[imageButton layer] setBorderWidth:1.0];
     [imageButton addTarget:self action:@selector(onImageButton:) forControlEvents:UIControlEventTouchUpInside];
-    [[self view] addSubview:imageButton];
+    [[self scrollView] addSubview:imageButton];
 }
 
 -(void)onImageButton:(id)sender

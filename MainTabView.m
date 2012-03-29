@@ -19,23 +19,37 @@
 {
     if (self = [super init]) {
         Home *home = [[Home alloc] init];
-        [[home tabBarItem] setTitle:@"Home"];
+        [[home tabBarItem] setTitle:@"Feed"];
+        UIImage *homeImage = [UIImage imageNamed:@"feed_icon.png"];
+        [[home tabBarItem] setImage:homeImage];
         About *about = [[About alloc] initWithStyle:UITableViewStyleGrouped];
-        [[about tabBarItem] setTitle:@"About Me"];
+        [[about tabBarItem] setTitle:@"Account"];
+        UIImage *aboutImage = [UIImage imageNamed:@"account_icon.png"];
+        [[about tabBarItem] setImage:aboutImage];
         MyPurge *myPurge = [[MyPurge alloc] init];
         [[myPurge tabBarItem] setTitle:@"My Purges"];
-        Browse *browse = [[Browse alloc] initWithStyle:UITableViewStylePlain];
-        [[browse tabBarItem] setTitle:@"Browse"];
+        UIImage *myPurgeImage = [UIImage imageNamed:@"browse_icon.png"];
+        [[myPurge tabBarItem] setImage:myPurgeImage];
+//        Browse *browse = [[Browse alloc] initWithStyle:UITableViewStylePlain];
+//        [[browse tabBarItem] setTitle:@"Browse"];
+//        UIImage *browseImage = [UIImage imageNamed:@"notification_icon.png"];
+//        [[browse tabBarItem] setImage:browseImage];
         Purge *purge = [[Purge alloc] init];
         [[purge tabBarItem] setTitle:@"Purge"];
+        UIImage *purgeImage = [UIImage imageNamed:@"plus_icon.png"];
+        [[purge tabBarItem] setImage:purgeImage];
         
-        [self setViewControllers:[NSArray arrayWithObjects:home, myPurge, purge, browse, about, nil] animated:NO];
+        UIImage *image = [UIImage imageNamed:@"logo_topbar.png"];
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:image];  
+        [[self navigationItem] setTitleView:imageView];
+        
+        [self setViewControllers:[NSArray arrayWithObjects:home, purge, myPurge, about, nil] animated:NO];
                 
         [home release], home = nil;
         [purge release], purge = nil;
         [about release], about = nil;
         [myPurge release], myPurge = nil;
-        [browse release], browse = nil;
+//        [browse release], browse = nil;
     }
     return self;
 }
@@ -57,6 +71,10 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    [[[self tabBarController] navigationController] setNavigationBarHidden:NO animated:animated];
+    [[[self tabBarController] navigationController] setToolbarHidden:YES animated:animated];
+    [[[self tabBarController] navigationItem] setHidesBackButton:YES];
 }
 
 - (void)viewDidUnload

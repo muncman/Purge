@@ -15,9 +15,11 @@
 {
     MBProgressHUD *HUD;
     HomeDataSource *_dataSource;
+    UIScrollView *_scrollView;
 }
 
 @property (nonatomic, retain) HomeDataSource *dataSource;
+@property (nonatomic, retain) UIScrollView *scrollView;
 
 -(void)displayImage:(UIImage*)image WithFrame:(CGRect)frame WithTag:(int)tag;
 -(void)onImageButton:(id)sender;

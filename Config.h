@@ -16,5 +16,6 @@
 #define kThumbnailWidth 75
 // Cheating on window size
 #define kThumbnailPadding (320 - kThumbnailWidth * 4) / 5
+#define kWebImageWidth 320.0f
 
 #endif

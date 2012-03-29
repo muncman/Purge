@@ -20,6 +20,9 @@
 @property (nonatomic, retain) id <HomeDataSourceDelegate> delegate;
 
 -(void)refresh;
+-(id)initWithLimit;
+-(void)refreshWithLimit;
+-(void)getPurgesWithLimit:(int)limit cache:(PFCachePolicy)cachePolicy;
 
 @end
 

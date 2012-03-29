@@ -7,7 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HomeDataSource.h"
 
 @interface Browse : UITableViewController
+<HomeDataSourceDelegate>
+{
+    HomeDataSource *_dataSource;
+    UIFont *font;
+    UIFont *fontBold;
+    UIColor *fontColor;
+}
+
+@property (nonatomic, retain) HomeDataSource *dataSource;
+
+-(void)loadCell:(UITableViewCell*)cell WithPurge:(PFObject*)purge WithData:(NSData*)data;
 
 @end

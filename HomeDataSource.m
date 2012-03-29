@@ -19,27 +19,12 @@
     [super dealloc];
 }
 
--(id)init
-{
-    if (self = [super init]) {
-        PFQuery *query = [PFQuery queryWithClassName:@"Purges"];
-        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-            if ( ! error) {
-                [self setPurges:objects];
-                [[self delegate] purgesDidLoad];
-            }
-            else {
-                [[self delegate] purgesFailed];
-            }
-        }];
-
-    }
-    return self;
-}
-
--(void)refresh
+-(void)getPurgesWithLimit:(int)limit cache:(PFCachePolicy)cachePolicy
 {
     PFQuery *query = [PFQuery queryWithClassName:@"Purges"];
+    [query orderByDescending:@"createdAt"];
+    [query setLimit:[NSNumber numberWithInt:limit]];
+    [query setCachePolicy:cachePolicy];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if ( ! error) {
             [self setPurges:nil];
@@ -50,6 +35,32 @@
             [[self delegate] purgesFailed];
         }
     }];
+}
+
+-(id)init
+{
+    if (self = [super init]) {
+        [self getPurgesWithLimit:80 cache:kPFCachePolicyCacheElseNetwork];
+    }
+    return self;
+}
+
+-(id)initWithLimit
+{
+    if (self = [super init]) {
+        [self getPurgesWithLimit:10 cache:kPFCachePolicyCacheElseNetwork];        
+    }
+    return self;
+}
+
+-(void)refresh
+{
+    [self getPurgesWithLimit:80 cache:kPFCachePolicyNetworkOnly];
+}
+
+-(void)refreshWithLimit
+{
+    [self getPurgesWithLimit:10 cache:kPFCachePolicyNetworkOnly];
 }
 
 @end

@@ -45,8 +45,9 @@
     [super viewDidLoad];
     
     [self setTitle:@"Login"];
+    [[self view] setBackgroundColor:[UIColor colorWithRed:0.792f green:0.874f blue:0.894f alpha:1]];
     
-    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(onDone)];
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Login" style:UIBarButtonItemStyleDone target:self action:@selector(onDone)];
     [[self navigationItem] setRightBarButtonItem:doneButton];
     [doneButton release], doneButton = nil;
 }
@@ -90,7 +91,7 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -103,8 +104,21 @@
         case 1:
             return 1;
             break;
+        case 2:
+            return 1;
+            break;
     }
     return 0;
+}
+
+-(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    switch (section) {
+        case 2:
+            return @"       Don't have an account yet?";
+            break;
+    }
+    return nil;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -144,6 +158,13 @@
             [cell addSubview:textField];
             
             [textField release];
+            
+            if ([indexPath section] == 2 && [indexPath row] == 0) {
+                [[cell contentView] setBackgroundColor:[UIColor clearColor]];
+                [cell setBackgroundColor:[UIColor clearColor]];
+                [[cell backgroundView] setBackgroundColor:[UIColor clearColor]];
+                [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+            }
         }
     }
     
@@ -158,8 +179,27 @@
         }
     }
     else if ([indexPath section] == 1 && [indexPath row] == 0) {
-        [[cell textLabel] setText:@"Forgot Password"];
+        [[cell textLabel] setText:@"Forgot Your Password?"];
         [[cell textLabel] setTextAlignment:UITextAlignmentCenter];
+    }
+    else if ([indexPath section] == 2 && [indexPath row] == 0) {
+        UIImage *image = [UIImage imageNamed:@"sign_up_button.png"];
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        [button setImage:image forState:UIControlStateNormal];
+        [cell addSubview:button];
+        [button addTarget:self action:@selector(onSignup) forControlEvents:UIControlEventTouchUpInside];
+        CGRect frame = CGRectMake(cell.frame.size.width / 2 - 70, cell.frame.size.height / 2 - 17, 140, 35);
+        [button setFrame:frame];
+        
+        UIView *backView = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
+        backView.backgroundColor = [UIColor clearColor];
+        cell.backgroundView = backView;
+        
+        [[cell contentView] setBackgroundColor:[UIColor clearColor]];
+        [cell setBackgroundColor:[UIColor clearColor]];
+        [[cell backgroundView] setBackgroundColor:[UIColor clearColor]];
+        
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     }
     
     return cell;
@@ -228,8 +268,16 @@
     }];
 }
 
+-(void)onSignup
+{
+    Signup *signup = [[Signup alloc] initWithStyle:UITableViewStyleGrouped];
+    [[self navigationController] pushViewController:signup animated:YES];
+    [signup release], signup = nil;
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if ([indexPath section] == 1) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
     }

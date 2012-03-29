@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ConnectSocial.h"
+//#import "ConnectSocial.h"
+#import "MainTabView.h"
 
 @interface Signup : UITableViewController
 <UITextFieldDelegate>

@@ -13,6 +13,7 @@
 @synthesize image = _image;
 @synthesize descriptionTextView = _descriptionTextView;
 @synthesize priceField = _priceField;
+@synthesize scrollView = _scrollView;
 
 #define kOFFSET_FOR_KEYBOARD 216.0
 
@@ -24,7 +25,8 @@
     [_image release], _image = nil;
     [_descriptionTextView release], _descriptionTextView = nil;
     [_priceField release], _priceField = nil;
-    
+    [_scrollView release], _scrollView = nil;
+
     [super dealloc];
 }
 
@@ -41,7 +43,26 @@
 {
     [super viewDidLoad];
     
-    // keyboard animations
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Purge" style:UIBarButtonItemStyleDone target:self action:@selector(onDone)];
+    [[self navigationItem] setRightBarButtonItem:doneButton];
+    [doneButton release], doneButton = nil;
+    
+    int xPosition = 15;
+    int padding = 15;
+    UIFont *boldFont = [UIFont fontWithName:@"Helvetica-Bold" size:17];
+    UIFont *font = [UIFont fontWithName:@"Helvetica" size:17];
+    UIColor *fontColor = [UIColor colorWithRed:0.301f green:0.325f blue:0.431f alpha:1];
+    
+    UIScrollView *view = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 320, 416)];
+    [self setScrollView:view];
+    [[self view] addSubview:view];
+    [view setScrollEnabled:YES];
+    [view setShowsVerticalScrollIndicator:NO];
+    [view setAlwaysBounceVertical:YES];
+    [view setDelegate:self];
+    [view setBackgroundColor:[UIColor colorWithRed:0.792f green:0.874f blue:0.894f alpha:1]];
+    [view setUserInteractionEnabled:YES];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self 
                                              selector:@selector(keyboardWillShow:) 
 												 name:UIKeyboardWillShowNotification 
@@ -51,34 +72,23 @@
 												 name:UIKeyboardWillHideNotification 
                                                object:[[self view] window]]; 
     
-    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(onDone)];
-    [[self navigationItem] setRightBarButtonItem:doneButton];
-    [doneButton release], doneButton = nil;
-    
-    int xPosition = 15;
-    int padding = 15;
-    CGFloat maxHeight = 200.0f;
-    
-    UIScrollView *view = [[UIScrollView alloc] initWithFrame:[[self view] frame]];
-    [self setView:view];
-    [view setScrollEnabled:YES];
-    [view setShowsVerticalScrollIndicator:NO];
-    [view setAlwaysBounceVertical:YES];
-    [view setDelegate:self];
-    
-    UIImage *newImage = [self imageByScalingForHeight:maxHeight WithImage:[self image]];
+    UIImage *newImage = [UIImage imageWithData:[self convertToWebWithWidth:kWebImageWidth WithImage:[self image]]];
     
     UIImageView *imageView = [[UIImageView alloc] initWithImage:newImage];
-    CGRect frame = [imageView frame];
-    frame.origin.x = 320 - 320/2 - frame.size.width/2;
-    frame.origin.y = padding;
+    CGRect frame = CGRectMake(padding, padding, 320 - 2 * padding, 320 - 2 * padding);
     [imageView setFrame:frame];
-    [[self view] addSubview:imageView];
+    [[self scrollView] addSubview:imageView];
+    [[imageView layer] setBorderColor:[[UIColor colorWithRed:0.396f green:0.435f blue:0.427f alpha:0.8] CGColor]];
+    [[imageView layer] setBorderWidth:1.0];
+    [[imageView layer] setCornerRadius:1.0];
     
     xPosition += imageView.frame.size.height;
     UILabel *description = [[UILabel alloc] initWithFrame:CGRectMake(padding, xPosition, 320 - padding * 2, 30)];
+    [description setBackgroundColor:[UIColor clearColor]];
     [description setText:@"Description"];
-    [[self view] addSubview:description];
+    [description setFont:boldFont];
+    [description setTextColor:fontColor];
+    [[self scrollView] addSubview:description];
     
     xPosition += description.frame.size.height;
     UITextView *descriptionTextView = [[UITextView alloc] initWithFrame:CGRectMake(padding, xPosition, 320 - padding * 2, 80)];
@@ -87,24 +97,36 @@
     [[descriptionTextView layer] setBorderWidth:2.0f];
     [[descriptionTextView layer] setCornerRadius:5];
     [descriptionTextView setClipsToBounds:YES];
-    [[self view] addSubview:descriptionTextView];
+    [descriptionTextView setFont:font];
+    [descriptionTextView setTextColor:fontColor];
+    [descriptionTextView setBackgroundColor:[UIColor clearColor]];
+    [[self scrollView] addSubview:descriptionTextView];
     [self setDescriptionTextView:descriptionTextView];
     
     xPosition += descriptionTextView.frame.size.height;    
     UILabel *price = [[UILabel alloc] initWithFrame:CGRectMake(padding, xPosition, 320 - padding * 2, 30)];
+    [price setBackgroundColor:[UIColor clearColor]];
     [price setText:@"Price:"];
-    [[self view] addSubview:price];
+    [price setFont:boldFont];
+    [price setTextColor:fontColor];
+    [[self scrollView] addSubview:price];
     
     xPosition += price.frame.size.height;
     UITextField *priceField = [[UITextField alloc] initWithFrame:CGRectMake(padding, xPosition, 320 - padding * 2, 50)];
     [priceField setReturnKeyType:UIReturnKeyDefault];
     [priceField setDelegate:self];
-    [priceField setBorderStyle:UITextBorderStyleRoundedRect];
-    [[self view] addSubview:priceField];
+    [priceField setBorderStyle:UITextBorderStyleNone];
+    [[priceField layer] setBorderColor:[[[UIColor grayColor] colorWithAlphaComponent:0.5] CGColor]];
+    [[priceField layer] setBorderWidth:2.0f];
+    [[priceField layer] setCornerRadius:5];
+    [priceField setFont:font];
+    [priceField setTextColor:fontColor];
+    [priceField setBackgroundColor:[UIColor clearColor]];
+    [[self scrollView] addSubview:priceField];
     [self setPriceField:priceField];
     
     xPosition += priceField.frame.size.height;
-    [view setContentSize:CGSizeMake(320, xPosition)];
+    [view setContentSize:CGSizeMake(320, xPosition + 2 * padding)];
     
     [view release], view = nil;
     [imageView release], imageView = nil;
@@ -131,17 +153,13 @@
         NSString *price = [[self priceField] text];
         
         if (price && [price length] > 0 && description && [description length] > 0) {
-            UIImage *thumbnail = [self imageByScalingForSize:CGSizeMake(kThumbnailWidth, kThumbnailHeight) WithImage:[self image]];
-            NSData *thumbnailData = UIImagePNGRepresentation(thumbnail);
-            
-            HUD = [[MBProgressHUD alloc] initWithView:[[self navigationController] view]];
-            [[[self navigationController] view] addSubview:HUD];
-            [HUD setMode:MBProgressHUDModeDeterminate];
-            [HUD setDelegate:self];
-            [HUD show:YES];
-            
+            NSData *thumbnailData = [self convertToWebWithWidth:kThumbnailWidth WithImage:[self image]];
+;
+                        
             PFFile *thumbFile = [PFFile fileWithName:@"thumbnail.png" data:thumbnailData];
             PFObject *purge = [PFObject objectWithClassName:@"Purges"];
+            
+            [MBProgressHUD showHUDAddedTo:[[self navigationController] view] animated:YES];
             
             [purge setObject:[[self priceField] text] forKey:@"price"];
             [purge setObject:[[self descriptionTextView] text] forKey:@"description"];
@@ -149,13 +167,24 @@
             // save thumbnail
             [thumbFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {
+                    //relate
                     [purge setObject:thumbFile forKey:@"thumbnail"];
-                    UIImage *properImage = [self orientImage:[self image]];
-                    NSData *imageData = UIImagePNGRepresentation(properImage);
+                    
+                    NSData *imageData = [self convertToWebWithWidth:kWebImageWidth WithImage:[self image]];
                     PFFile *imageFile = [PFFile fileWithName:@"image.png" data:imageData];
+                    
+                    [MBProgressHUD hideHUDForView:[[self navigationController] view] animated:YES];
+                    
+                    HUD = [[MBProgressHUD alloc] initWithView:[[self navigationController] view]];
+                    [[[self navigationController] view] addSubview:HUD];
+                    [HUD setMode:MBProgressHUDModeDeterminate];
+                    [HUD setDelegate:self];
+                    [HUD show:YES];
+                    
                     // save image
                     [imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                         if (succeeded) {
+                            //relate
                             [purge setObject:imageFile forKey:@"image"];
                             [purge setObject:[PFUser currentUser] forKey:@"user"];
                             // save data and link w/ user
@@ -234,12 +263,12 @@
     if (movedUp)
 	{
         rect.origin.y -= kOFFSET_FOR_KEYBOARD;
-        rect.size.height += kOFFSET_FOR_KEYBOARD;
+//        rect.size.height += kOFFSET_FOR_KEYBOARD;
     }
 	else
 	{
         rect.origin.y += kOFFSET_FOR_KEYBOARD;
-        rect.size.height -= kOFFSET_FOR_KEYBOARD;
+//        rect.size.height -= kOFFSET_FOR_KEYBOARD;
     }
     [self view].frame = rect;
     
@@ -284,23 +313,56 @@
     return newImage;
 }
 
-- (void)hudWasHidden:(MBProgressHUD *)hud {
+- (void)hudWasHidden:(MBProgressHUD *)hud 
+{
     // Remove HUD from screen when the HUD was hidded
     [HUD removeFromSuperview];
     [HUD release];
 	HUD = nil;
 }
 
-- (UIImage*)orientImage:(UIImage*)image {
+- (UIImage*)convertToWeb:(UIImage*)image 
+{
 	CGSize imgSize = [image size];
 	UIGraphicsBeginImageContext(imgSize);
-//	CGContextRef context = UIGraphicsGetCurrentContext();
-//	CGContextRotateCTM(context, -M_PI);
-//	CGContextTranslateCTM(context, -imgSize.width, -imgSize.height);
 	[image drawInRect:CGRectMake(0, 0, imgSize.width, imgSize.height)];
 	UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
 	UIGraphicsEndImageContext();
 	return newImage;
+}
+
+- (NSData *)convertToWebWithWidth:(float)length WithImage:(UIImage*)image 
+{
+    UIImage *newImage;
+
+    UIImage *mainImage = image;
+    UIImageView *mainImageView = [[UIImageView alloc] initWithImage:mainImage];
+    BOOL widthGreaterThanHeight = (mainImage.size.width > mainImage.size.height);
+    float sideFull = (widthGreaterThanHeight) ? mainImage.size.height : mainImage.size.width;
+    CGRect clippedRect = CGRectMake(0, 0, sideFull, sideFull);
+    //creating a square context the size of the final image which we will then
+    // manipulate and transform before drawing in the original image
+    UIGraphicsBeginImageContext(CGSizeMake(length, length));
+    CGContextRef currentContext = UIGraphicsGetCurrentContext();
+    CGContextClipToRect( currentContext, clippedRect);
+    CGFloat scaleFactor = length/sideFull;
+    if (widthGreaterThanHeight) {
+        //a landscape image – make context shift the original image to the left when drawn into the context
+        CGContextTranslateCTM(currentContext, -((mainImage.size.width - sideFull) / 2) * scaleFactor, 0);
+    }
+    else {
+        //a portfolio image – make context shift the original image upwards when drawn into the context
+        CGContextTranslateCTM(currentContext, 0, -((mainImage.size.height - sideFull) / 2) * scaleFactor);
+    }
+    //this will automatically scale any CGImage down/up to the required thumbnail side (length) when the CGImage gets drawn into the context on the next line of code
+    CGContextScaleCTM(currentContext, scaleFactor, scaleFactor);
+    [mainImageView.layer renderInContext:currentContext];
+    newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    NSData *imageData = UIImagePNGRepresentation(newImage);
+    [mainImageView release], mainImageView = nil;
+
+    return imageData;
 }
 
 @end

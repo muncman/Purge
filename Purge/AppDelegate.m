@@ -22,12 +22,13 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
-    
+        
     [TestFlight takeOff:@"3ab675c1d538a8a4e6243e86aee4e7da_NjM3OTcyMDEyLTAyLTE4IDIxOjM5OjMyLjA0MjQzMg"];
     
-    Splash *splash = [[Splash alloc] init];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:splash];
-    [splash release], splash = nil;
+//    Splash *splash = [[Splash alloc] init];
+    Login *login = [[Login alloc] initWithStyle:UITableViewStyleGrouped];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:login];
+    [[nav navigationBar] setTintColor:[UIColor colorWithRed:0.368f green:0.552f blue:0.647f alpha:1]];
 
     if ([PFUser currentUser]) {
         MainTabView *appView = [[MainTabView alloc] init];

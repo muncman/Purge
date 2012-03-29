@@ -50,6 +50,8 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [[[self tabBarController] navigationItem] setRightBarButtonItem:nil];
+    
     [super viewWillAppear:animated];
 }
 
@@ -109,10 +111,10 @@
         case 0:
             switch ([indexPath row]) {
                 case 0:
-                    [[cell textLabel] setText:@"Facebook"];
+                    [[cell textLabel] setText:@"Facebook (Coming soon!)"];
                     break;
                 case 1:
-                    [[cell textLabel] setText:@"Twitter"];
+                    [[cell textLabel] setText:@"Twitter (Coming soon!)"];
                     break;
             }
             break;

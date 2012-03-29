@@ -16,17 +16,20 @@
     UIImage *_image;
     UITextField *_priceField;
     UITextView *_descriptionTextView;
+    UIScrollView *_scrollView;
 }
 
 @property (nonatomic, retain) UIImage *image;
 @property (nonatomic, retain) UITextField *priceField;
 @property (nonatomic, retain) UITextView *descriptionTextView;
+@property (nonatomic, retain) UIScrollView *scrollView;
 
 - (UIImage*)imageByScalingForHeight:(CGFloat)maxHeight WithImage:(UIImage*)image;
 - (void)setViewMovedUp:(BOOL)movedUp;
 -(void)onDone;
 - (UIImage*)imageByScalingForSize:(CGSize)size WithImage:(UIImage*)image;
 -(void)savePurge;
-- (UIImage*)orientImage:(UIImage*)image;
+- (UIImage*)convertToWeb:(UIImage*)image;
+- (NSData *)convertToWebWithWidth:(float)length WithImage:(UIImage*)image;
 
 @end

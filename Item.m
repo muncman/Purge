@@ -11,9 +11,11 @@
 @implementation Item
 
 @synthesize purge = _purge;
+@synthesize scrollView = _scrollView;
 
 -(void)dealloc
 {
+    [_scrollView release], _scrollView = nil;
     [_purge release], _purge = nil;
     [super dealloc];
 }
@@ -30,31 +32,36 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    UIScrollView *view = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 320, 416)];
+    [[self view] addSubview:view];
+    [self setScrollView:view];    
+    [view setScrollEnabled:YES];
+    [view setShowsVerticalScrollIndicator:NO];
+    [view setAlwaysBounceVertical:YES];
+    [view setDelegate:self];
+    [view setBackgroundColor:[UIColor colorWithRed:0.792f green:0.874f blue:0.894f alpha:1]];
+    [view release], view = nil;
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [[[self tabBarController] navigationItem] setRightBarButtonItem:nil];
     [[self navigationController] setNavigationBarHidden:NO animated:animated];
-    [MBProgressHUD showHUDAddedTo:[[self navigationController] view] animated:YES];
+    [MBProgressHUD showHUDAddedTo:[self view] animated:YES];
 }
 
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-        
-    UIScrollView *view = [[UIScrollView alloc] initWithFrame:[[self view] frame]];
-    [self setView:view];
-    [view setScrollEnabled:YES];
-    [view setShowsVerticalScrollIndicator:NO];
-    [view setAlwaysBounceVertical:YES];
-    [view setDelegate:self];
     
-    int padding = 15;
+    int padding = 5;
     int runningHeight = padding;
     CGSize maxLabelSize = CGSizeMake(320 - 2 * padding, MAXFLOAT);
     UIFont *boldFont = [UIFont fontWithName:@"Helvetica-Bold" size:17];
     UIFont *font = [UIFont fontWithName:@"Helvetica" size:17];
+    UIColor *fontColor = [UIColor colorWithRed:0.301f green:0.325f blue:0.431f alpha:1];
     
     PFFile *imageFile = [[self purge] objectForKey:@"image"];
     NSData *imageData;
@@ -66,23 +73,27 @@
     }
     
     UIImage *image = [UIImage imageWithData:imageData];
-    UIImage *resizedImage = [self imageByScalingForHeight:200.0f WithImage:image];
     
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:resizedImage];
-    CGRect frame = [imageView frame];
-    frame.origin.x = 320 - 320/2 - frame.size.width/2;
-    frame.origin.y = padding;
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+    CGRect frame = CGRectMake(padding, padding, 320 - 2 * padding, 320 - 2 * padding);
     [imageView setFrame:frame];
-    [[self view] addSubview:imageView];
+    [[self scrollView] addSubview:imageView];
+    [[imageView layer] setMasksToBounds:YES];
+    [[imageView layer] setCornerRadius:2.0];
+    [[imageView layer] setBorderColor:[[UIColor colorWithRed:0.396f green:0.435f blue:0.427f alpha:0.8] CGColor]];
+    [[imageView layer] setBorderWidth:2.0];
     runningHeight += imageView.frame.size.height + padding;
+    [imageView release], imageView = nil;
         
     UILabel *descriptionTitle = [[UILabel alloc] initWithFrame:CGRectMake(padding, runningHeight, 320 - 2 * padding, 20)];
     [descriptionTitle setText:@"Description"];
     [descriptionTitle setFont:boldFont];
-    [view addSubview:descriptionTitle];
+    [[self scrollView] addSubview:descriptionTitle];
     runningHeight += descriptionTitle.frame.size.height;
+    [descriptionTitle setBackgroundColor:[UIColor clearColor]];
+    [descriptionTitle setTextColor:fontColor];
     [descriptionTitle release], descriptionTitle = nil;
-    
+        
     UILabel *description = [[UILabel alloc] initWithFrame:CGRectMake(padding, runningHeight, 320 - 2 * padding, 40)];
     [description setNumberOfLines:0];
     [description setLineBreakMode:UILineBreakModeWordWrap];
@@ -91,40 +102,65 @@
     frame = [description frame];
     frame.size.height = expected.height;
     [description setText:dText];
+    [description setTextColor:fontColor];
     [description setFrame:frame];
-    [view addSubview:description];
+    [[self scrollView] addSubview:description];
     runningHeight += description.frame.size.height + padding;
+    [description setBackgroundColor:[UIColor clearColor]];
     [description release], description = nil;
     
     UILabel *priceTitle = [[UILabel alloc] initWithFrame:CGRectMake(padding, runningHeight, 320 - 2 * padding, 20)];
     [priceTitle setText:@"Price"];
     [priceTitle setFont:boldFont];
-    [view addSubview:priceTitle];
+    [[self scrollView] addSubview:priceTitle];
     runningHeight += priceTitle.frame.size.height;
+    [priceTitle setTextColor:fontColor];
+    [priceTitle setBackgroundColor:[UIColor clearColor]];
     [priceTitle release], priceTitle = nil;
     
     UILabel *price = [[UILabel alloc] initWithFrame:CGRectMake(padding, runningHeight, 320 - 2 * padding, 20)];
     [price setNumberOfLines:0];
+    [price setTextColor:fontColor];
     [price setLineBreakMode:UILineBreakModeWordWrap];
     dText = [[self purge] objectForKey:@"price"];
     [price setText:dText];
-    [view addSubview:price];
+    [[self scrollView] addSubview:price];
+    [price setBackgroundColor:[UIColor clearColor]];
     runningHeight += price.frame.size.height + padding;
     [price release], price = nil;
     
-    CGRect buttonFrame = CGRectMake(padding, runningHeight, 320 - 2 * padding, 40);
-    UIButton *buy = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    CGRect buttonFrame = CGRectMake(padding, runningHeight, 320 - 2 * padding, 73);
+    UIImage *buyImage = [UIImage imageNamed:@"product_button.png"];
+    UIButton *buy = [UIButton buttonWithType:UIButtonTypeCustom];
+    [buy setTitleEdgeInsets:UIEdgeInsetsMake(10, -320, 5.0, 5.0)];
+    [buy setTitleColor:fontColor forState:UIControlStateNormal];
+    [[buy titleLabel] setFont:boldFont];
+    [buy setImage:buyImage forState:UIControlStateNormal];
     [buy setTitle:@"Buy" forState:UIControlStateNormal];
     [buy setFrame:buttonFrame];
-    [view addSubview:buy];
+    [buy addTarget:self action:@selector(onBuy) forControlEvents:UIControlEventTouchUpInside];
+    [[self scrollView] addSubview:buy];
+    runningHeight += buy.frame.size.height + padding;
         
-    [view setContentSize:CGSizeMake(320, runningHeight)];
+    [[self scrollView] setContentSize:CGSizeMake(320, runningHeight)];
     
-    [[self view] addSubview:buy];
-    
-    [view release], view = nil;
-    
-    [MBProgressHUD hideHUDForView:[[self navigationController] view] animated:YES];
+    [[self scrollView] addSubview:buy];
+        
+    [MBProgressHUD hideHUDForView:[self view] animated:YES];
+}
+
+-(void)onBuy
+{
+    UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"Confirm" message:@"Buy accepting you are committing to purchasing this item from the seller." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Agree", nil];
+    [av show];
+    [av release], av = nil;
+}
+
+-(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        
+    }
 }
 
 - (void)viewDidUnload
@@ -139,20 +175,5 @@
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
-
-- (UIImage*)imageByScalingForHeight:(CGFloat)maxHeight WithImage:(UIImage*)image
-{
-    CGFloat oldWidth = image.size.width;
-    CGFloat oldHeight = image.size.height;
-    CGFloat newWidth = (oldWidth / oldHeight) * maxHeight;
-    CGSize newSize = CGSizeMake(newWidth, maxHeight);
-    UIGraphicsBeginImageContext( newSize );
-    [image drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
-    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return newImage;
-}
-
 
 @end

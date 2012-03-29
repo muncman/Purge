@@ -11,10 +11,12 @@
 @implementation MyPurge
 
 @synthesize dataSource = _dataSource;
+@synthesize scrollView = _scrollView;
 
 -(void)dealloc
 {
     [_dataSource release], _dataSource = nil;
+    [_scrollView release], _scrollView = nil;
     [super dealloc];
 }
 
@@ -40,7 +42,18 @@
 {
     [super viewDidLoad];
     
-    [MBProgressHUD showHUDAddedTo:[[self navigationController] view] animated:YES];
+    UIScrollView *view = [[UIScrollView alloc] init];
+    [[self view] addSubview:view];
+    [self setScrollView:view];
+    [view setFrame:CGRectMake(0, 0, 320, 400)];
+    [view setScrollEnabled:YES];
+    [view setShowsVerticalScrollIndicator:NO];
+    [view setAlwaysBounceVertical:YES];
+    [view setBackgroundColor:[UIColor colorWithRed:0.792f green:0.874f blue:0.894f alpha:1]];
+    
+    [view release], view = nil;
+    
+    [MBProgressHUD showHUDAddedTo:[self view] animated:YES];
     
     MyPurgesDataSource *data = [[MyPurgesDataSource alloc] init];
     [data setDelegate:self];
@@ -50,9 +63,25 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    UIBarButtonItem *syncButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(onSync)];
+    [[[self tabBarController] navigationItem] setRightBarButtonItem:nil];
+    [[[self tabBarController] navigationItem] setRightBarButtonItem:syncButton];
+    [syncButton release], syncButton = nil;
+    
     [super viewWillAppear:animated];
-    [[self navigationController] setNavigationBarHidden:NO animated:animated];
-    [[self navigationController] setToolbarHidden:YES animated:animated];
+}
+
+-(void)onSync
+{
+    if ([self dataSource]) {
+        [MBProgressHUD showHUDAddedTo:[self view] animated:YES];
+        [[self dataSource] refresh];
+    }
+}
+
+-(void)myItemWasDeleted
+{
+    [self onSync];
 }
 
 - (void)viewDidUnload
@@ -70,20 +99,19 @@
 
 -(void)purgesDidLoad
 {    
-    [MBProgressHUD hideHUDForView:[[self navigationController] view] animated:YES];
+    [MBProgressHUD hideHUDForView:[self view] animated:YES];
+    
+    for (UIView *view in [[self scrollView] subviews]) {
+        if ([view isKindOfClass:[UIButton class]]) {
+            [view removeFromSuperview];
+        }
+    }
     
     int purgesCount = [[[self dataSource] purges] count];
     int viewHeight = ((purgesCount / 4) + 1) * kThumbnailHeight + ((purgesCount / 4) + 1) * kThumbnailPadding;
-    UIScrollView *view = [[UIScrollView alloc] init];
-    [self setView:view];
-    [view setFrame:CGRectMake(0, 0, 320, 400)];
-    [view setContentSize:CGSizeMake(320, viewHeight)];
-    [view setScrollEnabled:YES];
-    [view setShowsVerticalScrollIndicator:NO];
-    [view setAlwaysBounceVertical:YES];
     
-    [view release], view = nil;
-    
+    [[self scrollView] setContentSize:CGSizeMake(320, viewHeight)];
+        
     // 4 images wide grid
     for (int i = 0; i < purgesCount; ++i) {
         PFObject *purge = [[[self dataSource] purges] objectAtIndex:i];
@@ -94,7 +122,7 @@
             int x = (i % 4) * kThumbnailWidth + ((i % 4) + 1) * kThumbnailPadding;
             int y = (i / 4) * kThumbnailHeight + ((i / 4) + 1) * kThumbnailPadding;
             CGRect frame = CGRectMake(x, y, kThumbnailWidth, kThumbnailHeight);
-            [self displayImage:image WithFrame:frame];
+            [self displayImage:image WithFrame:frame WithTag:i];
         }
     }
 }
@@ -106,12 +134,27 @@
     [av release], av = nil;
 }
 
--(void)displayImage:(UIImage*)image WithFrame:(CGRect)frame
+-(void)displayImage:(UIImage*)image WithFrame:(CGRect)frame WithTag:(int)tag
 {
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-    [imageView setFrame:frame];
-    [[self view] addSubview:imageView];
-    [imageView release], imageView = nil;
+    UIButton *imageButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [imageButton setFrame:frame];
+    [imageButton setImage:image forState:UIControlStateNormal];
+    [imageButton setTag:tag];
+    [[imageButton layer] setBorderColor:[[UIColor colorWithRed:0.396f green:0.435f blue:0.427f alpha:1] CGColor]];
+    [[imageButton layer] setBorderWidth:1.0];
+    [imageButton addTarget:self action:@selector(onImageButton:) forControlEvents:UIControlEventTouchUpInside];
+    [[self scrollView] addSubview:imageButton];
+}
+
+-(void)onImageButton:(id)sender
+{
+    UIButton *button = (UIButton*)sender;    
+    PFObject *purge = [[[self dataSource] purges] objectAtIndex:[button tag]];
+    MyItem *item = [[MyItem alloc] init];
+    [item setDelegate:self];
+    [item setPurge:purge];
+    [[self navigationController] pushViewController:item animated:YES];
+    [MyItem release], item = nil;
 }
 
 - (void)hudWasHidden:(MBProgressHUD *)hud {

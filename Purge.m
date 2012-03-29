@@ -32,21 +32,23 @@
 {
     [super viewDidLoad];
     
+    [[self view] setBackgroundColor:[UIColor colorWithRed:0.792f green:0.874f blue:0.894f alpha:1]];
+    
     CGRect frame = [[self view] frame];
-    CGRect buttonFrame = CGRectMake(15, frame.size.width / 3 * 2, frame.size.width - 2*15, 40);
+    CGRect buttonFrame = CGRectMake(66, frame.size.width / 3 * 2, 187, 46);
     
     UIButton *choose = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [choose setTitle:@"Choose Existing" forState:UIControlStateNormal];
+    UIImage *image = [UIImage imageNamed:@"choose_existing.png"];
+    [choose setImage:image forState:UIControlStateNormal];
     [choose addTarget:self action:@selector(onChooseExisting) forControlEvents:UIControlEventTouchUpInside];
     [choose setFrame:buttonFrame];
     
     buttonFrame.origin.y += frame.size.width / 5;
     UIButton *take = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [take setTitle:@"Take Photo" forState:UIControlStateNormal];
+    image = [UIImage imageNamed:@"take_photo.png"];
+    [take setImage:image forState:UIControlStateNormal];
     [take addTarget:self action:@selector(onTakePhoto) forControlEvents:UIControlEventTouchUpInside];
     [take setFrame:buttonFrame];
-    
-    
     
     [[self view] addSubview:choose];
     [[self view] addSubview:take];
@@ -55,8 +57,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [[self navigationController] setNavigationBarHidden:NO animated:animated];
-    [[self navigationController] setToolbarHidden:YES animated:animated];
+    [[[self tabBarController] navigationItem] setRightBarButtonItem:nil];
 }
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo

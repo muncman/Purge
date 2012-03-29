@@ -19,6 +19,8 @@
 @property (nonatomic, retain) NSArray *purges;
 @property (nonatomic, retain) id <MyPurgesDataSourceDelegate> delegate;
 
+-(void)refresh;
+
 @end
 
 @protocol MyPurgesDataSourceDelegate

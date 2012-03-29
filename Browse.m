@@ -11,12 +11,21 @@
 
 @implementation Browse
 
+@synthesize dataSource = _dataSource;
+
+-(void)dealloc
+{
+    [_dataSource release], _dataSource = nil;
+    [super dealloc];
+}
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
     if (self) {
-        // Custom initialization
-    }
+        fontBold = [UIFont fontWithName:@"Helvetica-Bold" size:17];
+        font = [UIFont fontWithName:@"Helvetica" size:17];
+        fontColor = [UIColor colorWithRed:0.301f green:0.325f blue:0.431f alpha:1];    }
     return self;
 }
 
@@ -33,12 +42,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [[self tableView] setBackgroundColor:[UIColor colorWithRed:0.792f green:0.874f blue:0.894f alpha:1]];
+    
+    [MBProgressHUD showHUDAddedTo:[[self navigationController] view] animated:YES];
+    
+    HomeDataSource *data = [[HomeDataSource alloc] initWithLimit];
+    [data setDelegate:self];
+    [self setDataSource:data];
+    [data release], data = nil;
 }
 
 - (void)viewDidUnload
@@ -51,8 +62,22 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [[self tabBarController] setTitle:@"Browse"];
     [[self navigationController] setNavigationBarHidden:NO animated:animated];
     [[self navigationController] setToolbarHidden:YES animated:animated];
+    
+    UIBarButtonItem *syncButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(onSync)];
+    [[[self tabBarController] navigationItem] setRightBarButtonItem:nil];
+    [[[self tabBarController] navigationItem] setRightBarButtonItem:syncButton];
+    [syncButton release], syncButton = nil;
+}
+
+-(void)onSync
+{
+    if ([self dataSource]) {
+        [MBProgressHUD showHUDAddedTo:[[self navigationController] view] animated:YES];
+        [[self dataSource] refreshWithLimit];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -76,87 +101,93 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+-(void)purgesDidLoad
+{    
+    [MBProgressHUD hideHUDForView:[[self navigationController] view] animated:YES];
+    
+    [[self tableView] reloadData];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
+    if ([self dataSource] && [[self dataSource] purges]) {
+        return [[[self dataSource] purges] count];
+    }
     return 0;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 360.0f;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    
+    NSLog(@"%i", [indexPath row]);
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
-    
-    // Configure the cell...
+    else{
+//        PFFile *imageFile = [[[[self dataSource] purges] objectAtIndex:[indexPath row]] objectForKey:@"image"];
+//        NSData *imageData;
+//        if ( imageFile && ! [imageFile isDataAvailable]) {
+//            [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+//                if ( ! error) {
+//                    NSLog(@"data loaded without error");
+//                    [self loadCell:cell WithPurge:[[[self dataSource] purges] objectAtIndex:[indexPath row]] WithData:data];
+//                }
+//            }];
+//        }
+//        else {
+//            imageData = [[[[self dataSource] purges] objectAtIndex:[indexPath row]] objectForKey:@"image"];
+//            [self loadCell:cell WithPurge:[[[self dataSource] purges] objectAtIndex:[indexPath row]] WithData:imageData];
+//            NSLog(@"data already loaded");
+//        }
+    }
     
     return cell;
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+-(void)loadCell:(UITableViewCell*)cell WithPurge:(PFObject*)purge WithData:(NSData*)data
 {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(5, 5, 310, 350)];
+    [view setBackgroundColor:[UIColor blackColor]];
+    [[cell contentView] addSubview:view];
+    
+    if (data) {
+        UIImage *image = [UIImage imageWithData:data];
+        if (image) {
+            UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+            CGRect frame = CGRectMake(0, 0, 310, 310);
+            [imageView setFrame:frame];
+            [[imageView layer] setMasksToBounds:YES];
+            [[imageView layer] setCornerRadius:2.0];
+            [[imageView layer] setBorderColor:[[UIColor colorWithRed:0.396f green:0.435f blue:0.427f alpha:0.8] CGColor]];
+            [[imageView layer] setBorderWidth:2.0];
+            [view addSubview:imageView];
+            [imageView release], imageView = nil;
+        }
+    }
+    
+    [view release], view = nil;
+    
+    [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
 }
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     [detailViewController release];
-     */
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 @end
