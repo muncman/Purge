@@ -28,12 +28,13 @@
 //    Splash *splash = [[Splash alloc] init];
     Login *login = [[Login alloc] initWithStyle:UITableViewStyleGrouped];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:login];
+    [login release];
     [[nav navigationBar] setTintColor:[UIColor colorWithRed:0.368f green:0.552f blue:0.647f alpha:1]];
 
     if ([PFUser currentUser]) {
         MainTabView *appView = [[MainTabView alloc] init];
-        
         [nav pushViewController:appView animated:NO];
+        [appView release];
     }
     [[self window] setRootViewController:nav];
     [nav release], nav = nil;

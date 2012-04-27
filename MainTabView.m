@@ -42,6 +42,7 @@
         UIImage *image = [UIImage imageNamed:@"logo_topbar.png"];
         UIImageView *imageView = [[UIImageView alloc] initWithImage:image];  
         [[self navigationItem] setTitleView:imageView];
+        [imageView release];
         
         [self setViewControllers:[NSArray arrayWithObjects:home, purge, myPurge, about, nil] animated:NO];
                 

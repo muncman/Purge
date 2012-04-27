@@ -138,7 +138,7 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if ([indexPath section] == 0) {
-        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+//        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         switch ([indexPath row]) {
             case 0:
 //                [[PFUser currentUser] linkToFacebook:nil block:^(BOOL succeeded, NSError *error){

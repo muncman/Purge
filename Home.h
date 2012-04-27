@@ -24,6 +24,5 @@
 -(void)displayImage:(UIImage*)image WithFrame:(CGRect)frame WithTag:(int)tag;
 -(void)onImageButton:(id)sender;
 -(void)onSync;
--(void)showNavigationBar;
 
 @end

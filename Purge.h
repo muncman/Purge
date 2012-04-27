@@ -14,6 +14,5 @@
 
 -(void)onChooseExisting;
 -(void)onTakePhoto;
--(void)onCancelPhoto;
 
 @end

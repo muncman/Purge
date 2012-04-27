@@ -28,7 +28,6 @@
 - (void)setViewMovedUp:(BOOL)movedUp;
 -(void)onDone;
 - (UIImage*)imageByScalingForSize:(CGSize)size WithImage:(UIImage*)image;
--(void)savePurge;
 - (UIImage*)convertToWeb:(UIImage*)image;
 - (NSData *)convertToWebWithWidth:(float)length WithImage:(UIImage*)image;
 

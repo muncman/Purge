@@ -154,7 +154,7 @@
     [item setDelegate:self];
     [item setPurge:purge];
     [[self navigationController] pushViewController:item animated:YES];
-    [MyItem release], item = nil;
+    [item release], item = nil;
 }
 
 - (void)hudWasHidden:(MBProgressHUD *)hud {

@@ -9,8 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "HomeDataSource.h"
 
-@interface Browse : UITableViewController
-<HomeDataSourceDelegate>
+@interface Browse : UITableViewController <HomeDataSourceDelegate>
 {
     HomeDataSource *_dataSource;
     UIFont *font;

@@ -33,8 +33,6 @@
 		EC48AE2F14F1812700F91455 /* sign_up_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EC48AE2D14F1812700F91455 /* sign_up_button@2x.png */; };
 		EC48AE3214F1846E00F91455 /* main_icon_hires.png in Resources */ = {isa = PBXBuildFile; fileRef = EC48AE3014F1846E00F91455 /* main_icon_hires.png */; };
 		EC48AE3314F1846E00F91455 /* main_icon_lores.png in Resources */ = {isa = PBXBuildFile; fileRef = EC48AE3114F1846E00F91455 /* main_icon_lores.png */; };
-		EC48AE3514F184CA00F91455 /* main_icon_hires.png in Resources */ = {isa = PBXBuildFile; fileRef = EC48AE3414F184CA00F91455 /* main_icon_hires.png */; };
-		EC48AE3714F184CD00F91455 /* main_icon_lores.png in Resources */ = {isa = PBXBuildFile; fileRef = EC48AE3614F184CD00F91455 /* main_icon_lores.png */; };
 		EC5CC5CD14F098D900F1298B /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EC5CC5CC14F098D900F1298B /* libz.dylib */; };
 		EC5CC5D314F0A89900F1298B /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = EC5CC5D214F0A89900F1298B /* Item.m */; };
 		EC5CC5D614F0A8A200F1298B /* MyItem.m in Sources */ = {isa = PBXBuildFile; fileRef = EC5CC5D514F0A8A200F1298B /* MyItem.m */; };
@@ -359,7 +357,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0420;
-				ORGANIZATIONNAME = "Topic Design";
+				ORGANIZATIONNAME = Purge;
 			};
 			buildConfigurationList = EC3B01AA14EF72CA00CC8989 /* Build configuration list for PBXProject "Purge" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -401,8 +399,6 @@
 				EC48AE2F14F1812700F91455 /* sign_up_button@2x.png in Resources */,
 				EC48AE3214F1846E00F91455 /* main_icon_hires.png in Resources */,
 				EC48AE3314F1846E00F91455 /* main_icon_lores.png in Resources */,
-				EC48AE3514F184CA00F91455 /* main_icon_hires.png in Resources */,
-				EC48AE3714F184CD00F91455 /* main_icon_lores.png in Resources */,
 				EC4582AC14F1951F00900ACA /* choose_existing.png in Resources */,
 				EC4582AD14F1951F00900ACA /* choose_existing@2x.png in Resources */,
 				EC4582AE14F1951F00900ACA /* take_photo.png in Resources */,

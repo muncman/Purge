@@ -1,0 +1,24 @@
+# Mac OS X
+*.DS_Store
+
+# Xcode <= 3
+*.pbxuser
+*.mode1
+*.mode1v3
+*.mode2v3
+*.perspective
+*.perspectivev3
+
+# Xcode 4
+*.xcuserstate
+xcuserdata/
+
+# Generated files
+build/
+*.[oa]
+*.out
+*.log
+
+# Backup files
+*~.nib
+*.swp
